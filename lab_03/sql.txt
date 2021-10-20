@@ -1,0 +1,39 @@
+ZADANIE 1:
+create table postac (
+id_postac int(3) auto_increment primary key,
+nazwa varchar(40) NOT NULL,
+rodzaj ENUM('wiking','ptak','kobieta'),
+data_ur date NOT NULL,
+wiek int(3) UNSIGNED NOT NULL
+);
+
+insert into postac VALUES (NULL,"tesciowa","kobieta","1980-10-10","80");
+insert into postac VALUES (NULL,"drozd","ptak","2020-10-22","25");
+insert into postac VALUES (NULL,"bjorn","wiking","2021-10-22","30");
+update postac set wiek = 88 where nazwa = "tesciowa";
+
+Zadanie 2:
+
+create table walizka(
+id_walizki int(3) NOT NULL auto_increment primary key,
+pojemnosc int(3) UNSIGNED NOT NULL,
+kolor ENUM('rozowy','czerowny','teczowy','zolty'),
+id_wlasciciela INT(3),
+FOREIGN KEY(id_wlasciciela) REFERENCES postac(id_postac) on delete set NULL
+);
+
+alter table walizka
+alter kolor set default 'rozowy';
+insert into walizka VALUES (NULL,3,"czerowny",3);
+insert into walizka VALUES (NULL,1,"teczowy",1);
+
+Zadanie 3:
+
+create table izba_z_polami(
+adres_budynku varchar(100) primary key,
+nazwa_izby varchar(100) primary key,
+metraz int(10) UNSIGNED NOT NULL,
+wlasciciel int(3),
+foreign key(wlasciciel) references postac(id_postac) on delete set null
+) // ERROR
+
