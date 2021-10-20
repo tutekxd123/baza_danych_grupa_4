@@ -29,11 +29,22 @@ insert into walizka VALUES (NULL,1,"teczowy",1);
 
 Zadanie 3:
 
-create table izba_z_polami(
-adres_budynku varchar(100) primary key,
-nazwa_izby varchar(100) primary key,
+create table izba(
+adres_budynku varchar(100),
+nazwa_izby varchar(100),
 metraz int(10) UNSIGNED NOT NULL,
 wlasciciel int(3),
 foreign key(wlasciciel) references postac(id_postac) on delete set null
 ) // ERROR
 
+Zadanie 4:
+create table przetwory(
+id_przetworu int(4) primary key,
+rok_produkcji year on default set 1654,
+id_wykonawca int(3),
+foreign key(id_wykonawca) references postac(id_postac),
+zawartosc varchar(100),
+dodatek varchar(100) on default set "papryczka chili",
+id_konsumenta int(3),
+foreign key(id_konsumenta) references postac(id_postac),
+)
