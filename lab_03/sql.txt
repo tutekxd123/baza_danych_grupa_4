@@ -35,16 +35,20 @@ nazwa_izby varchar(100),
 metraz int(10) UNSIGNED NOT NULL,
 wlasciciel int(3),
 foreign key(wlasciciel) references postac(id_postac) on delete set null
-) // ERROR
+)
+alter table izba add column kolor varchar(30) after metraz;alter table izba alter column kolor set default 'czarny';
+
+insert into izba values("test 9/20","spizarnia","20","czarny","1");
 
 Zadanie 4:
 create table przetwory(
 id_przetworu int(4) primary key,
-rok_produkcji year on default set 1654,
+rok_produkcji int(6) default '1654',
 id_wykonawca int(3),
 foreign key(id_wykonawca) references postac(id_postac),
 zawartosc varchar(100),
-dodatek varchar(100) on default set "papryczka chili",
+dodatek varchar(100) default "papryczka chili",
 id_konsumenta int(3),
-foreign key(id_konsumenta) references postac(id_postac),
+foreign key(id_konsumenta) references postac(id_postac)
 )
+insert INTO przetwory values ('1','1654','1','Bigos',DEFAULT,'2');
