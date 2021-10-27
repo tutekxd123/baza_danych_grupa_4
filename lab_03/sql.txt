@@ -32,6 +32,7 @@ Zadanie 3:
 create table izba(
 adres_budynku varchar(100),
 nazwa_izby varchar(100),
+PRIMARY KEY (adres_budynku,nazwa_izby),
 metraz int(10) UNSIGNED NOT NULL,
 wlasciciel int(3),
 foreign key(wlasciciel) references postac(id_postac) on delete set null
@@ -50,5 +51,35 @@ zawartosc varchar(100),
 dodatek varchar(100) default "papryczka chili",
 id_konsumenta int(3),
 foreign key(id_konsumenta) references postac(id_postac)
-)
+);
 insert INTO przetwory values ('1','1654','1','Bigos',DEFAULT,'2');
+
+Zadanie 5:
+insert into postac VALUES(NULL,"wikinig1","wiking","2001-10-24",'20');
+insert into postac VALUES(NULL,"wikinig2","wiking","2005-10-24",'15');
+insert into postac VALUES(NULL,"wikinig3","wiking","2003-10-24",'18');
+insert into postac VALUES(NULL,"wikinig4","wiking","2002-10-24",'19');
+insert into postac VALUES(NULL,"wikinig5","wiking","2010-10-24",'11');
+
+create table statek(
+nazwa_statku varchar(50) primary key,
+rodzaj_statku enum('barka','wojenny'),
+data_wodowania date,
+max_ladowonosc int unsigned
+);
+
+insert into statek VALUES("cirilla","wojenny","2021-10-09","30")
+insert into statek VALUES("darmowe alko","barka","2021-08-11","30");
+
+alter table postac add column funkcja VARCHAR(90);
+
+update postac set funkcja = "kapitan" where nazwa="Bjorn"
+
+alter table postac add column statek VARCHAR(50);
+alter table postac add foreign key(statek) references statek(nazwa_statku);
+
+update postac set statek="cirilla" where rodzaj="wiking" OR nazwa="drozd";
+
+delete from izba where nazwa_izby = "spizarnia";
+
+drop table izba;
