@@ -1,0 +1,46 @@
+zadanie 1:
+a) set foreign_key_checks = 0;delete from postac where nazwa="tesciowa" or nazwa="wiking1";set foreign_key_checks = 1;
+b) alter table postac modify id_postac int;
+alter table przetwory drop foreign key przetwory_ibfk_1;
+alter table przetwory drop foreign key przetwory_ibfk_2;
+alter table walizka drop foreign key walizka_ibfk_1;
+alter table postac drop primary key;
+
+zadanie 2:
+a)
+	alter table postac add pesel char(11);
+	update postac set pesel = 9109112542 +id_postac;
+	alter table postac add primary key(pesel);
+b) alter table postac modify rodzaj enum("wiking","ptak","kobieta","syrena");
+c) insert into postac VALUES ('9','syrenka','syrena','2014-12-12','11',NULL,"cirilla", '9109112512');
+
+
+Zadanie 3:
+a)
+select statek from postac where nazwa = "Bjorn";
+update postac set statek = "cirilla"  where nazwa like "%a%";
+
+b)
+
+update statek set max_ladowonosc  = max_ladowonosc /100*70 where data_wodowania >= '1901-01-01' AND data_wodowania <= '2000-12-24';
+
+c) alter table postac add check (wiek<1000);
+
+zadanie 4:
+a) insert into postac VALUES('10','loko',null,'1999-05-21','22',NULL,NULL,48112968898);
+b) create table marynarz(
+id_postac int NOT NULL,
+nazwa VARCHAR(40) NOT NULL,
+rodzaj enum('wiking','ptak','kobieta','syrena') DEFAULT NULL,
+data_ur date NOT NULL,
+wiek int unsigned check(wiek<1000) not null,
+funkcja varchar(90) default null,
+statek varchar(50) default null,
+pesel char(11) PRIMARY KEY not null
+);
+# alternatywnie
+create table marynarz like postac;
+
+# alternatywa nr.2 z danymi
+create table marynarz select * from postac where statek is not null;
+
