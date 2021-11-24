@@ -1,0 +1,31 @@
+Lab_07:
+Zadanie 1:
+a) Pominięte
+b) select nazwa from kreatura
+where idKreatury not in(select id_uczestnika from uczestnicy)
+c) 
+select wyprawa.nazwa,sum(ekwipunek.ilosc)  from kreatura
+inner join ekwipunek on ekwipunek.idKreatury=kreatura.idKreatury
+inner join uczestnicy on uczestnicy.id_uczestnika = kreatura.idKreatury
+inner join wyprawa on wyprawa.id_wyprawy = uczestnicy.id_wyprawy
+group by wyprawa.nazwa
+
+Zadanie 2:
+a) select concat(wyprawa.nazwa,count(uczestnicy.id_wyprawy),group_concat(DISTINCT kreatura.nazwa))  from kreatura
+inner join ekwipunek on ekwipunek.idKreatury=kreatura.idKreatury
+inner join uczestnicy on uczestnicy.id_uczestnika 
+
+= kreatura.idKreatury
+inner join wyprawa on wyprawa.id_wyprawy = uczestnicy.id_wyprawy
+group by wyprawa.nazwa
+b) select idEtapu,sektor.nazwa,kreatura.nazwa from etapy_wyprawy
+inner join wyprawa on 
+
+etapy_wyprawy.idWyprawy=wyprawa.id_wyprawy
+inner join sektor on sektor.id_sektora=etapy_wyprawy.sektor
+inner join 
+
+kreatura on wyprawa.kierownik = kreatura.idKreatury
+order by wyprawa.data_rozpoczecia,etapy_wyprawy.kolejnosc
+
+Zadanie 3:
