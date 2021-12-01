@@ -6,7 +6,6 @@ where idKreatury not in(select id_uczestnika from uczestnicy)
 c) 
 select wyprawa.nazwa,sum(ekwipunek.ilosc)  from kreatura
 inner join ekwipunek on 
-
 ekwipunek.idKreatury=kreatura.idKreatury
 inner join uczestnicy on uczestnicy.id_uczestnika = kreatura.idKreatury
 inner join wyprawa on wyprawa.id_wyprawy = uczestnicy.id_wyprawy
