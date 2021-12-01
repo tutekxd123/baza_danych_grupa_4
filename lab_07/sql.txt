@@ -50,3 +50,17 @@ a) select wyprawa.nazwa,sum(length(etapy_wyprawy.dziennik)) from wyprawa
 inner join etapy_wyprawy on wyprawa.id_wyprawy=etapy_wyprawy.idWyprawy
 group by wyprawa.nazwa
 having sum(length(etapy_wyprawy.dziennik))>400
+b)
+select sum(ekwipunek.ilosc*zasob.waga)/count(uczestnicy.id_uczestnika),uczestnicy.id_wyprawy from uczestnicy
+inner join ekwipunek on ekwipunek.idKreatury = uczestnicy.id_uczestnika
+inner join zasob on zasob.idZasobu = ekwipunek.idZasobu
+inner join wyprawa on wyprawa.id_wyprawy = uczestnicy.id_wyprawy
+group by wyprawa.id_wyprawy
+
+Zadanie 5:
+a)
+select kreatura.nazwa,DATEDIFF(wyprawa.data_rozpoczecia,kreatura.dataUr) AS DateDiff from kreatura
+inner join wyprawa on kreatura.idKreatury = wyprawa.id_wyprawy
+inner join etapy_wyprawy on wyprawa.id_wyprawy = etapy_wyprawy.idWyprawy
+inner join sektor on sektor.id_sektora = etapy_wyprawy.sektor
+where sektor.nazwa="Chatka dziadka"
