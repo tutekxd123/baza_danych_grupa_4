@@ -1,0 +1,42 @@
+https://github.com/kropiak/zti_bazy/tree/master/lab_2?fbclid=IwAR2wLTMFvoGqzzQMgs3BiFF3GQ64fkpxmfcgnJ7Ofd29oObj9HMv24R243M
+(CZESC 2(lab_02))
+1.
+select imie,nazwisko,nazwa from pracownik
+inner join dzial on pracownik.dzial=dzial.id_dzialu
+
+2.
+select nazwa_towaru,nazwa_kategori,ilosc from towar
+inner join kategoria on towar.kategoria=kategoria.id_kategori
+inner join stan_magazynowy on towar.id_towaru=stan_magazynowy.towar
+order by ilosc desc
+
+3.
+select id_zamowienia from zamowienie
+where status_zamowienia=6
+
+4.
+select * from klient
+inner join adres_klienta on klient.id_klienta=adres_klienta.klient
+where miejscowosc = "Olsztyn"
+
+5.
+select * from jednostka_miary
+left join stan_magazynowy on jednostka_miary.id_jednostki=stan_magazynowy.jm
+where stan_magazynowy.jm is NULL
+
+6.
+select id_zamowienia from zamowienie
+where year(data_zamowienia)="2018"
+7.
+
+8.
+select * from zamowienie
+order by data_zamowienia asc
+limit 0,5
+
+9.
+select * from zamowienie
+where zamowienie.status_zamowienia not in(5)
+10.
+select * from adres_klienta
+where kod not like "__-___"
