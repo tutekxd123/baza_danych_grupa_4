@@ -1,0 +1,91 @@
+https://github.com/kropiak/zti_bazy/tree/master/lab_2?fbclid=IwAR2wLTMFvoGqzzQMgs3BiFF3GQ64fkpxmfcgnJ7Ofd29oObj9HMv24R243M
+(CZESC 2(lab_02))
+1.
+select imie,nazwisko,nazwa from pracownik
+inner join dzial on pracownik.dzial=dzial.id_dzialu
+
+2.
+select nazwa_towaru,nazwa_kategori,ilosc from towar
+inner join kategoria on towar.kategoria=kategoria.id_kategori
+inner join stan_magazynowy on towar.id_towaru=stan_magazynowy.towar
+order by ilosc desc
+
+3.
+select id_zamowienia from zamowienie
+where status_zamowienia=6
+
+4.
+select * from klient
+inner join adres_klienta on klient.id_klienta=adres_klienta.klient
+where miejscowosc = "Olsztyn"
+
+5.
+select * from jednostka_miary
+left join stan_magazynowy on jednostka_miary.id_jednostki=stan_magazynowy.jm
+where stan_magazynowy.jm is NULL
+
+6.
+select id_zamowienia from zamowienie
+where year(data_zamowienia)="2018"
+7.
+
+8.
+select * from zamowienie
+order by data_zamowienia asc
+limit 0,5
+
+9.
+select * from zamowienie
+where zamowienie.status_zamowienia not in(5)
+10.
+select * from adres_klienta
+where kod not like "__-___"
+
+https://github.com/kropiak/zti_bazy/blob/master/lab_3/lab_3_zadania_1.md
+
+1.
+select imie,nazwisko,year(data_urodzenia) from pracownik
+2.
+select imie,nazwisko,YEAR(CURRENT_DATE()) - year(data_urodzenia) from pracownik
+3.
+select count(id_pracownika),dzial.nazwa from pracownik
+inner join dzial on pracownik.dzial = dzial.id_dzialu
+group by dzial
+
+4.
+select count(id_towaru),kategoria.nazwa_kategori from towar
+inner join kategoria on towar.kategoria=kategoria.id_kategori
+group by kategoria
+
+5.
+select group_concat(nazwa_towaru),kategoria.nazwa_kategori from towar
+inner join kategoria on towar.kategoria=kategoria.id_kategori
+group by kategoria
+
+6.
+select round(avg(pensja),2),id_pracownika from pracownik
+group by id_pracownika
+
+7.
+select round(avg(pensja),2),id_pracownika from pracownik
+where DATE_ADD(current_date(), INTERVAL -1825 DAY)<data_zatrudnienia
+group by id_pracownika
+
+8.
+select nazwa_towaru,count(towar) from pozycja_zamowienia
+inner join towar on pozycja_zamowienia.towar=towar.id_towaru
+group by nazwa_towaru
+order by count(towar) desc 
+limit 0,10
+
+9.
+select round(sum(cena),2),numer_zamowienia from zamowienie
+inner join pozycja_zamowienia on pozycja_zamowienia.zamowienie=zamowienie.id_zamowienia
+group by zamowienie
+
+10.
+select imie,nazwisko,sum(cena) from pracownik
+inner join zamowienie on pracownik.id_pracownika=zamowienie.pracownik_id_pracownika
+inner join pozycja_zamowienia on pozycja_zamowienia.zamowienie=zamowienie.id_zamowienia
+where zamowienie.data_zamowienia between "2017-01-01"  AND "2017-03-31"
+group by id_pracownika
