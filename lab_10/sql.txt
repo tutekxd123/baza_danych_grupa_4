@@ -1,0 +1,55 @@
+1.
+select dzial.nazwa,min(pensja),avg(pensja),max(pensja) from pracownik
+inner join dzial on pracownik.dzial=dzial.id_dzialu
+group by dzial.nazwa
+
+2.
+select pelna_nazwa,sum(cena*ilosc) from klient
+inner join zamowienie on zamowienie.klient=klient.id_klienta
+inner join pozycja_zamowienia on pozycja_zamowienia.zamowienie=zamowienie.id_zamowienia
+group by id_zamowienia
+order by sum(cena*ilosc) DESC
+limit 0,10
+
+3.
+select year(data_zamowienia),sum(cena*ilosc) from pozycja_zamowienia
+inner join zamowienie on pozycja_zamowienia.zamowienie=zamowienie.id_zamowienia
+where status_zamowienia=5
+group by year(data_zamowienia)
+order by sum(cena*ilosc) DESC
+
+4.
+select  sum(cena*ilosc) from pozycja_zamowienia
+inner join zamowienie on pozycja_zamowienia.zamowienie=zamowienie.id_zamowienia
+where status_zamowienia=6
+
+5.
+select miejscowosc,count( DISTINCT id_zamowienia),sum(cena*ilosc) from zamowienie
+inner join klient on zamowienie.klient=klient.id_klienta
+inner join adres_klienta on klient.id_klienta=adres_klienta.klient
+inner join pozycja_zamowienia on pozycja_zamowienia.zamowienie = zamowienie.id_zamowienia
+where  adres_klienta.typ_adresu=1
+group by miejscowosc
+
+6.
+select sum(ilosc*cena)-sum(cena_zakupu*ilosc) from towar
+inner join pozycja_zamowienia on towar.id_towaru=pozycja_zamowienia.towar
+inner join zamowienie on pozycja_zamowienia.zamowienie = zamowienie.id_zamowienia
+where status_zamowienia=5
+
+7.
+select year(data_zamowienia),sum(ilosc*cena)-sum(cena_zakupu*ilosc) from towar
+inner join pozycja_zamowienia on towar.id_towaru=pozycja_zamowienia.towar
+inner join zamowienie on pozycja_zamowienia.zamowienie = zamowienie.id_zamowienia
+where status_zamowienia=5
+group by year(data_zamowienia)
+
+8.
+select nazwa_kategori,sum(cena_zakupu*ilosc) from stan_magazynowy
+inner join towar on towar.id_towaru=stan_magazynowy.towar
+inner join kategoria on towar.kategoria = kategoria.id_kategori
+group by nazwa_kategori
+
+9.
+select monthname(data_urodzenia) as miesiac, count(id_pracownika) as ilosc
+from pracownik group by month(data_urodzenia), monthname(data_urodzenia) order by month(data_urodzenia);
